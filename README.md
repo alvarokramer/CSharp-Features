@@ -52,48 +52,48 @@ In the code below, we used the Tuple type to create a simple API filter validati
 
 ```c#
 public static class ParamsValidator
+{
+    public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
     {
-        public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
-        {
-            //initiates the tuple with the types it must have
-            var result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", startDate, endDate);
+        //initiates the tuple with the types it must have
+        var result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", startDate, endDate);
 
-            //Validates the date parameters
-            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "EndDate should be greater than StartDate.", startDate, endDate);
+        //Validates the date parameters
+        if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(false, "EndDate should be greater than StartDate.", startDate, endDate);
 
-            if(!startDate.HasValue && !endDate.HasValue)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", DateTime.Now.AddDays(-7), DateTime.Now);
+        if(!startDate.HasValue && !endDate.HasValue)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
-            //Validates the Page Number parameter
-            if (page <= 0)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "Page number should be greater than zero.", startDate, endDate);
+        //Validates the Page Number parameter
+        if (page <= 0)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(false, "Page number should be greater than zero.", startDate, endDate);
 
-            return result;
-        }
+        return result;
     }
+}
 ```
 With C# 7 changes, we can refactor our code to a much clearer syntax, by being able to name our variables inside the Tuple. So our code above should look like this: 
 
 ```c#
 public static class ParamsValidator
+{
+    public static (bool IsValid, string ErrorMessage, DateTime? StartDate, DateTime? EndDate) Validate(DateTime? startDate, DateTime? endDate, int page)
     {
-        public static (bool IsValid, string ErrorMessage, DateTime? StartDate, DateTime? EndDate) Validate(DateTime? startDate, DateTime? endDate, int page)
-        {
-            var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
+        var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
 
-            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
+        if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+            result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
 
-            if(!startDate.HasValue && !endDate.HasValue)
-                result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
+        if(!startDate.HasValue && !endDate.HasValue)
+            result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
-            if (page <= 0)
-                result = (false, "Page number should be greater than zero.", startDate, endDate);
+        if (page <= 0)
+            result = (false, "Page number should be greater than zero.", startDate, endDate);
 
-            return result;
-        }
+        return result;
     }
+}
 ```
 And if we want to access the values inside the new Tuple, we can just do this: 
 
@@ -174,14 +174,14 @@ This is a sample just using get in properties to make them read only:
 ``` csharp
 struct Dimension
 {
-   public int Width { get; }
-   public int Height { get; }
+    public int Width { get; }
+    public int Height { get; }
 
-   public Dimension(int width, int height)
-   {
-      this.Width = width;
-      this.Height = height;
-   }
+    public Dimension(int width, int height)
+    {
+        this.Width = width;
+        this.Height = height;
+    }
 }
 ```
 
@@ -196,8 +196,8 @@ In the code below using `init`, the constructor would no longer be necessary usi
 ``` csharp
 struct Dimension
 {
-   public int Width { get; init; }
-   public int Height { get; init; }
+    public int Width { get; init; }
+    public int Height { get; init; }
 }
 ```
 
