@@ -98,6 +98,7 @@ The deconstructing is a way of consume tuples. A declaration of deconstructing i
 
 The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
+A `init` setter property should be declared in place of the `set` keyword.
 
 This is a sample just using get in properties to make them read only:
 
