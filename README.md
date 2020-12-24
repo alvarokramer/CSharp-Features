@@ -37,6 +37,36 @@ static decimal GetTollPrice(IVehicle vehicle)
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
+The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself. 
+
+In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity. 
+
+```c#
+public static class ParamsValidator
+    {
+        public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
+        {
+            //initiates the tuple with the types it must have
+            var result = new Tuple<bool, string, DateTime?, DateTime?, string>(true, "", startDate, endDate, sellerToken);
+
+            //Validates the date parameters
+            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+                result = new Tuple<bool, string, DateTime?, DateTime?, string>(false, "EndDate should be greater than StartDate.", startDate, endDate, sellerToken);
+
+            if(!startDate.HasValue && !endDate.HasValue)
+                result = new Tuple<bool, string, DateTime?, DateTime?, string>(true, "", DateTime.Now.AddDays(-7), DateTime.Now, sellerToken);
+
+            //Validates the Page Number parameter
+            if (page <= 0)
+                result = new Tuple<bool, string, DateTime?, DateTime?, string>(false, "Page number should be greater than zero.", startDate, endDate, sellerToken);
+
+            return result;
+        }
+    }
+```
+
+It's important to remember that the Tuple Type can only hold 8(eight) parameters at a time and it will throw an exception if you try to add more values to it. 
+
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
 The init only concept brings the flexibility for immutable model in C#.
