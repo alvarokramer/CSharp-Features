@@ -5,7 +5,7 @@ In this article we present a curated list of new and not so new features added t
 
 ## [Switch Expressions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression)
 
-Switch Expressions is a feature added in C# 8 that provides a concise way of creating switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more plesent sintax for the programmer.
+Switch Expressions is a feature added in C# 8 that provides a concise way to create switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more pleasant sintax.
 
 ``` csharp
 var interestingFact = DateTime.Today.DayOfWeek switch
@@ -33,6 +33,15 @@ static decimal GetTollPrice(IVehicle vehicle)
         _ => 10.00m
     };
 }
+
+interface IVehicle {}
+
+class Car : IVehicle
+{
+    public float Weight { get; set; }
+}
+
+class Motorcycle : IVehicle {}
 ```
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
@@ -67,9 +76,27 @@ public static class ParamsValidator
 
 It's important to remember that the Tuple Type can only hold 8(eight) parameters at a time and it will throw an exception if you try to add more values to it. 
 
+## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
+
+The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
+
+* You can deconstruct into existing variables:
+
+```c#
+    string destination;
+    double distance;
+    (destination, distance) = routeFunction(100);
+```
+
+* Explicity declare the type of the variables
+
+```c#
+    (string destination, double distance) = routeFunction(100);
+```
+
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
-The init only concept brings the flexibility for immutable model in C#.
+The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
 
 This is a sample just using get in properties to make them read only:
@@ -94,7 +121,7 @@ Then the object initializer has to be via constructor:
 var dimension = new Dimension(10, 10);
 ```
 
-In the code below using init, the constructor would no longer be necessary using unit only properties:
+In the code below using `init`, the constructor would no longer be necessary using unit only properties:
 
 ``` csharp
 struct Dimension
@@ -107,12 +134,64 @@ struct Dimension
 Then the object initializer can be used like this:
 
 ``` csharp
-var dimension = new Dimension() { Width = 10, Height = 10 };
+var dimension = new Dimension { Width = 10, Height = 10 };
+```
+When a base class has a `init` virtual property, the derived classes overriding it must also have `init`
+
+```c#
+class BaseClass
+{
+    public virtual int BaseClassProperty { get; init; }
+}
+
+class DerivedClass1 : BaseClass
+{
+    public override int BaseClassProperty { get; init; }
+}
+
+class DerivedClass2 : BaseClass
+{
+    // Compilation Error: Property must have `init` to override
+    public override int BaseClassProperty { get; set; }
+}
 ```
 
-## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
-
 ## [Index e Ranges](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes)
+
+C# 8 introduces two new operators:
+- The `^` operator provides a better syntax to access elements counting from the end:
+
+``` csharp
+string[] animals = {
+    "frog", "cat", "dog", "armadillo", "rabbit", "capybara"
+};
+
+Console.WriteLine(animals[^1]); // capybara
+Console.WriteLine(animals[animals.Length - 1]); // capybara
+Console.WriteLine(animals[^4]); // dog
+```
+
+- The range operator `..` can be used to get a subset of a sequence based on the start and end values. Ranges are exclusive, meaning the end isn't included in the range.
+
+``` csharp
+string[] animals = {
+    "frog", "cat", "dog", "armadillo", "rabbit", "capybara"
+};
+
+WriteArray(animals[..]); // frog, cat, dog, armadillo, rabbit, capybara
+WriteArray(animals[..4]); // frog, cat, dog, armadillo
+WriteArray(animals[1..3]); // cat, dog
+WriteArray(animals[1..^2]); // cat, dog, armadillo
+WriteArray(animals[^3..]); // armadillo, rabbit, capybara
+
+static void WriteArray(string[] strings) => Console.WriteLine(string.Join(", ", strings));
+```
+
+This funcionality relies on the new types `Index` and `Range`:
+- `System.Index`: represents a type that can be used to index a collection either from the start or the end.
+- `System.Range`: represents a range that has start and end indexes.
+
+To support the operators a type must provide an [indexer](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/indexers/) with `Index` and `Range` parameters or have a property named `Length` or `Count` that returns an `int`.
 
 ## [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types)
 
