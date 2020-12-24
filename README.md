@@ -7,21 +7,21 @@ In this article we present a curated list of new and not so new features added t
 
 Switch Expressions is a feature added in C# 8 that provides a concise way of creating switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more plesent sintax for the programmer.
 
-```c#
+``` csharp
 var interestingFact = DateTime.Today.DayOfWeek switch
 {
-	DayOfWeek.Monday => "Day of the moon",
-	DayOfWeek.Tuesday => "Is derived from Old English for Tiw's day",
-	DayOfWeek.Wednesday => "It's named after Odin",
-	DayOfWeek.Thursday => "It's named after Thor",
-	DayOfWeek.Friday => "Comes from the Old English that means day of Frige",
-	_ => "Yey, weekend!"
+    DayOfWeek.Monday => "Day of the moon",
+    DayOfWeek.Tuesday => "Is derived from Old English for Tiw's day",
+    DayOfWeek.Wednesday => "It's named after Odin",
+    DayOfWeek.Thursday => "It's named after Thor",
+    DayOfWeek.Friday => "Comes from the Old English that means day of Frige",
+    _ => "Yey, weekend!"
 };
 ```
 
 Combined with [pattern matching](https://docs.microsoft.com/en-us/dotnet/csharp/pattern-matching) it allows creating complex statements. It's important to note that the switch expression arms are evaluated in text order.
 
-```c#
+``` csharp
 static decimal GetTollPrice(IVehicle vehicle)
 {
     return vehicle switch
