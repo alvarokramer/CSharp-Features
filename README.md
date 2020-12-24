@@ -52,7 +52,7 @@ In the code below, the constructor would no longer be necessary using unit:
 
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
-This feature was introduced in c# 8 and the purpose was enable to the developer create and consume streams asynchronously. The problem which this feature solved was: before `Asynchronous streams` c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` brings to the developer the possibility to generate multiple results asynchronously.
+This feature was introduced in c# 8 and the purpose was enable to create and consume streams asynchronously. The problem which this feature solved was: before `Asynchronous streams` c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` brings to the developer the possibility to generate multiple results asynchronously.
 
 In the past, if you needed multiple results from a method probably the solution was to declare an `IEnumerable<>` return to the method together with the use of `yield return` modifier:
 
