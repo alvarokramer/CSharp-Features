@@ -5,7 +5,7 @@ In this article we present a curated list of new and not so new features added t
 
 ## [Switch Expressions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression)
 
-Switch Expressions is a feature added in C# 8 that provides a concise way to create switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more pleasant sintax for the programmer.
+Switch Expressions is a feature added in C# 8 that provides a concise way to create switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more pleasant sintax.
 
 ``` csharp
 var interestingFact = DateTime.Today.DayOfWeek switch
