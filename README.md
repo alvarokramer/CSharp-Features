@@ -82,23 +82,20 @@ public static class ParamsValidator
         {
             var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
 
-            if (string.IsNullOrEmpty(sellerToken))
-                result = (false, "Seller token should be informed.", startDate, endDate, sellerToken);
-
             if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = (false, "EndDate should be greater than StartDate.", startDate, endDate, sellerToken);
+                result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
 
             if(!startDate.HasValue && !endDate.HasValue)
-                result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now, sellerToken);
+                result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
             if (page <= 0)
-                result = (false, "Page number should be greater than zero.", startDate, endDate, sellerToken);
+                result = (false, "Page number should be greater than zero.", startDate, endDate);
 
             return result;
         }
     }
 ```
-And if we want to access the values inside the nem Tuple, we can just do this: 
+And if we want to access the values inside the new Tuple, we can just do this: 
 
 ```c#
 var isValid = result.IsValid;
