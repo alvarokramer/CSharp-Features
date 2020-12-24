@@ -107,7 +107,7 @@ struct Dimension
 Then the object initializer can be used like this:
 
 ``` csharp
-var dimension = new Dimension() { Width = 10, Height = 10 };
+var dimension = new Dimension { Width = 10, Height = 10 };
 ```
 
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
