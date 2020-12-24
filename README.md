@@ -35,7 +35,6 @@ static decimal GetTollPrice(IVehicle vehicle)
 }
 ```
 
-
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
@@ -45,6 +44,7 @@ It makes simpler the read-only for properties, structs and indexers once an obje
 
 This is a sample just using get in properties to make them read only:
 
+``` csharp
 struct Dimension
 {
    public int Width { get; }
@@ -56,14 +56,17 @@ struct Dimension
       this.Height = height;
    }
 }
+```
 
 In the code below using init, the constructor would no longer be necessary using unit only properties:
 
+``` csharp
 struct Dimension
 {
    public int Width { get; init; }
    public int Height { get; init; }
 }
+```
 
 And in both cases, the object initializer remais the same:
 
