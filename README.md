@@ -76,6 +76,24 @@ public static class ParamsValidator
 
 It's important to remember that the Tuple Type can only hold 8(eight) parameters at a time and it will throw an exception if you try to add more values to it. 
 
+## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
+
+The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
+
+* You can deconstruct into existing variables:
+
+```c#
+    string destination;
+    double distance;
+    (destination, distance) = routeFunction(100);
+```
+
+* Explicity declare the type of the variables
+
+```c#
+    (string destination, double distance) = routeFunction(100);
+```
+
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
 The `init` only concept brings the flexibility for immutable model in C#.
@@ -137,8 +155,6 @@ class DerivedClass2 : BaseClass
     public override int BaseClassProperty { get; set; }
 }
 ```
-
-## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
 ## [Index e Ranges](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes)
 
