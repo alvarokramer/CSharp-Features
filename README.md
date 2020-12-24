@@ -58,6 +58,12 @@ struct Dimension
 }
 ```
 
+Then the object initializer has to be via constructor:
+
+``` csharp
+var dimension = new Dimension(10, 10);
+```
+
 In the code below using init, the constructor would no longer be necessary using unit only properties:
 
 ``` csharp
@@ -68,7 +74,7 @@ struct Dimension
 }
 ```
 
-And in both cases, the object initializer remais the same:
+Then the object initializer can be used like this:
 
 ``` csharp
 var dimension = new Dimension() { Width = 10, Height = 10 };
