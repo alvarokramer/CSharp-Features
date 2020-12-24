@@ -1,4 +1,4 @@
-# CSharp-Features
+# C# Features from the lastest versions
 
 C# 9 was recently released with new great features and shows once again the fast evolution of the programming language.
 In this article we present a curated list of new and not so new features added to the C# over the years.
