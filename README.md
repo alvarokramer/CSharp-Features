@@ -40,6 +40,11 @@ static decimal GetTollPrice(IVehicle vehicle)
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
+The init only concept brings the flexibility for immutable model in C#.
+It makes simpler the read-only for properties, structs and indexers once an object has been created.
+
+In the code below, the constructor would no longer be necessary using unit:
+
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
 ## [Index e Ranges](https://docs.microsoft.com/en-us/do)
