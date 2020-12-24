@@ -97,7 +97,7 @@ The deconstructing is a way of consume tuples. A declaration of deconstructing i
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
 The `init` only concept brings the flexibility for immutable model in C#.
-It makes simpler the read-only for properties, structs and indexers once an object has been created.
+It makes simpler the `readonly` for properties, structs(value types) and indexers once an object has been created.
 A `init` setter property should be declared in place of the `set` keyword.
 
 This is a sample just using get in properties to make them read only:
@@ -152,7 +152,7 @@ class DerivedClass1 : BaseClass
 
 class DerivedClass2 : BaseClass
 {
-    // Compilation Error: Property must have `init` to override
+    // Compilation Error: Property must have init to override
     public override int BaseClassProperty { get; set; }
 }
 ```
