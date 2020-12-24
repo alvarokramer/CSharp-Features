@@ -5,7 +5,7 @@ In this article we present a curated list of new and not so new features added t
 
 ## [Switch Expressions](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/switch-expression)
 
-Switch Expressions is a feature added in C# 8 that provides a concise way of creating switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more plesent sintax for the programmer.
+Switch Expressions is a feature added in C# 8 that provides a concise way to create switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more pleasant sintax.
 
 ``` csharp
 var interestingFact = DateTime.Today.DayOfWeek switch
@@ -33,13 +33,22 @@ static decimal GetTollPrice(IVehicle vehicle)
         _ => 10.00m
     };
 }
+
+interface IVehicle {}
+
+class Car : IVehicle
+{
+    public float Weight { get; set; }
+}
+
+class Motorcycle : IVehicle {}
 ```
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
-The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself. 
+The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
 
-In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity. 
+In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity.
 
 ```c#
 public static class ParamsValidator
@@ -94,10 +103,29 @@ And if we want to access the values inside the nem Tuple, we can just do this:
 ```c#
 var isValid = result.IsValid;
 ```
+## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
+
+The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
+
+* You can deconstruct into existing variables:
+
+```c#
+    string destination;
+    double distance;
+    (destination, distance) = routeFunction(100);
+```
+
+* Explicity declare the type of the variables
+
+```c#
+    (string destination, double distance) = routeFunction(100);
+```
+
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
-The init only concept brings the flexibility for immutable model in C#.
+The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
+A `init` setter property should be declared in place of the `set` keyword.
 
 This is a sample just using get in properties to make them read only:
 
@@ -121,7 +149,7 @@ Then the object initializer has to be via constructor:
 var dimension = new Dimension(10, 10);
 ```
 
-In the code below using init, the constructor would no longer be necessary using unit only properties:
+In the code below using `init`, the constructor would no longer be necessary using unit only properties:
 
 ``` csharp
 struct Dimension
@@ -134,14 +162,100 @@ struct Dimension
 Then the object initializer can be used like this:
 
 ``` csharp
-var dimension = new Dimension() { Width = 10, Height = 10 };
+var dimension = new Dimension { Width = 10, Height = 10 };
 ```
+When a base class has a `init` virtual property, the derived classes overriding it must also have `init`
 
-## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
+```c#
+class BaseClass
+{
+    public virtual int BaseClassProperty { get; init; }
+}
+
+class DerivedClass1 : BaseClass
+{
+    public override int BaseClassProperty { get; init; }
+}
+
+class DerivedClass2 : BaseClass
+{
+    // Compilation Error: Property must have `init` to override
+    public override int BaseClassProperty { get; set; }
+}
+```
 
 ## [Index e Ranges](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes)
 
+C# 8 introduces two new operators:
+- The `^` operator provides a better syntax to access elements counting from the end:
+
+``` csharp
+string[] animals = {
+    "frog", "cat", "dog", "armadillo", "rabbit", "capybara"
+};
+
+Console.WriteLine(animals[^1]); // capybara
+Console.WriteLine(animals[animals.Length - 1]); // capybara
+Console.WriteLine(animals[^4]); // dog
+```
+
+- The range operator `..` can be used to get a subset of a sequence based on the start and end values. Ranges are exclusive, meaning the end isn't included in the range.
+
+``` csharp
+string[] animals = {
+    "frog", "cat", "dog", "armadillo", "rabbit", "capybara"
+};
+
+WriteArray(animals[..]); // frog, cat, dog, armadillo, rabbit, capybara
+WriteArray(animals[..4]); // frog, cat, dog, armadillo
+WriteArray(animals[1..3]); // cat, dog
+WriteArray(animals[1..^2]); // cat, dog, armadillo
+WriteArray(animals[^3..]); // armadillo, rabbit, capybara
+
+static void WriteArray(string[] strings) => Console.WriteLine(string.Join(", ", strings));
+```
+
+This funcionality relies on the new types `Index` and `Range`:
+- `System.Index`: represents a type that can be used to index a collection either from the start or the end.
+- `System.Range`: represents a range that has start and end indexes.
+
+To support the operators a type must provide an [indexer](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/indexers/) with `Index` and `Range` parameters or have a property named `Length` or `Count` that returns an `int`.
+
 ## [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types)
+
+Firstly it's important to separate two concepts, [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) are available since c# 2 and it's different from what we want to approach. This topic is about [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types), for more information on the two main categories of c# types, check the [Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types).
+
+The nullable and non-nullable reference types were introduced in c# 8. This feature works based on compiler enforcement rules, that is:
+
+1) When the variable isn't supposed to be null:
+
+- the compiler enforces the variable to be initialized with a non-null value;
+
+- it can never be assigned the value null;
+
+- the compiler doesn't launch any warnings when the variable is initialized to null;
+
+- the compiler doesn't launch any warnings when the variable is assigned to null;
+
+- the compiler launches warnings when the variable is dereferenced without null checks.
+
+2) On the other hand, to the nullable variables:
+
+- it may be initialized with null value;
+
+- can be assigned to null after initialization;
+
+- the variable may only be dereferenced when the compiler can guarantee that the value isn't null;
+
+- the compiler doesn't launch any warnings when reference types are dereferenced;
+
+- the compiler launches warnings if a variable is set to an expression that may be null.
+
+The `nullable reference type` syntax notation is the same as the `nullable value types` notation: just insert a `?` appended to the variable's type as the example below:
+
+``` csharp
+  string? name;
+```
 
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
