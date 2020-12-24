@@ -109,6 +109,25 @@ Then the object initializer can be used like this:
 ``` csharp
 var dimension = new Dimension { Width = 10, Height = 10 };
 ```
+When a base class has a init virtual property, the derived classes overriding it must also have init
+
+```c#
+class BaseClass
+{
+    public virtual int BaseClassProperty { get; init; }
+}
+
+class DerivedClass1 : BaseClass
+{
+    public override int BaseClassProperty { get; init; }
+}
+
+class DerivedClass2 : BaseClass
+{
+    // Compilation Error: Property must have init to override
+    public override int BaseClassProperty { get; set; }
+}
+```
 
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
