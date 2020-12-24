@@ -11,10 +11,10 @@ Switch Expressions is a feature added in C# 8 that provides a concise way of cre
 var interestingFact = DateTime.Today.DayOfWeek switch
 {
 	DayOfWeek.Monday => "Day of the moon",
-	DayOfWeek.Tuesday => "The English name is derived from Old English Tiwesdæg",
+	DayOfWeek.Tuesday => "Is derived from Old English for Tiw's day",
 	DayOfWeek.Wednesday => "It's named after Odin",
 	DayOfWeek.Thursday => "It's named after Thor",
-	DayOfWeek.Friday => "The name comes from the Old English Frīġedæġ",
+	DayOfWeek.Friday => "Comes from the Old English that means day of Frige",
 	_ => "Yey, weekend!"
 };
 ```
