@@ -368,7 +368,7 @@ namespace asynchronous_streams
 You can find the source code [here](https://github.com/alvarokramer/CSharp-Features).
 
 ## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)
-C# 9 introduced a new feature named Record Type, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
+C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
 
 ```c#
     public record Car
@@ -380,14 +380,14 @@ C# 9 introduced a new feature named Record Type, which is a keyword to make an o
         int Horsepower { get; }
     }
 ```
-Its properties are implicitly public, so it's not necessary to write the "public" modifier before the type. 
+Its properties are implicitly public, so it's not necessary to write the `public` modifier before the type. 
 When creating an object from the record, we get a code like the one below: 
 
 ```c#
 var modelS = new Car("Red", "ModelS", 250);
 ```
 Works just like a normal object, but when it's created, we cannot change its properties' values anymore.
-If we wanted to create then a new record that is just like the first "Car", but with a different "Color", the new keyword "with" can be used. 
+If we wanted to create then a new record that is just like the first "Car", but with a different "Color", the new keyword `with` can be used. 
 
 ```c#
 var blueCar = modelS with {Color = "Blue"};
