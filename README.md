@@ -56,26 +56,50 @@ public static class ParamsValidator
         public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
         {
             //initiates the tuple with the types it must have
-            var result = new Tuple<bool, string, DateTime?, DateTime?, string>(true, "", startDate, endDate, sellerToken);
+            var result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", startDate, endDate);
 
             //Validates the date parameters
             if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = new Tuple<bool, string, DateTime?, DateTime?, string>(false, "EndDate should be greater than StartDate.", startDate, endDate, sellerToken);
+                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "EndDate should be greater than StartDate.", startDate, endDate);
 
             if(!startDate.HasValue && !endDate.HasValue)
-                result = new Tuple<bool, string, DateTime?, DateTime?, string>(true, "", DateTime.Now.AddDays(-7), DateTime.Now, sellerToken);
+                result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
             //Validates the Page Number parameter
             if (page <= 0)
-                result = new Tuple<bool, string, DateTime?, DateTime?, string>(false, "Page number should be greater than zero.", startDate, endDate, sellerToken);
+                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "Page number should be greater than zero.", startDate, endDate);
 
             return result;
         }
     }
 ```
+With C# 7 changes, we can refactor our code to a much clearer syntax, by being able to name our variables inside the Tuple. So our code above should look like this: 
 
-It's important to remember that the Tuple Type can only hold 8(eight) parameters at a time and it will throw an exception if you try to add more values to it. 
+```c#
+public static class ParamsValidator
+    {
+        public static (bool IsValid, string ErrorMessage, DateTime? StartDate, DateTime? EndDate) Validate(DateTime? startDate, DateTime? endDate, int page)
+        {
+            var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
 
+            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+                result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
+
+            if(!startDate.HasValue && !endDate.HasValue)
+                result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
+
+            if (page <= 0)
+                result = (false, "Page number should be greater than zero.", startDate, endDate);
+
+            return result;
+        }
+    }
+```
+And if we want to access the values inside the new Tuple, we can just do this: 
+
+```c#
+var isValid = result.IsValid;
+```
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
 The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
@@ -98,6 +122,7 @@ The deconstructing is a way of consume tuples. A declaration of deconstructing i
 
 The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
+A `init` setter property should be declared in place of the `set` keyword.
 
 This is a sample just using get in properties to make them read only:
 
