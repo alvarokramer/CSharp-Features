@@ -70,7 +70,9 @@ struct Dimension
 
 And in both cases, the object initializer remais the same:
 
+``` csharp
 var dimension = new Dimension() { Width = 10, Height = 10 };
+```
 
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
