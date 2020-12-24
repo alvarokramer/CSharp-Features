@@ -37,9 +37,9 @@ static decimal GetTollPrice(IVehicle vehicle)
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
-The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself. 
+The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
 
-In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity. 
+In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity.
 
 ```c#
 public static class ParamsValidator
