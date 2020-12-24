@@ -46,9 +46,9 @@ class Motorcycle : IVehicle {}
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
-The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself. 
+The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
 
-In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity. 
+In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity.
 
 ```c#
 public static class ParamsValidator
@@ -78,7 +78,7 @@ It's important to remember that the Tuple Type can only hold 8(eight) parameters
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
-The init only concept brings the flexibility for immutable model in C#.
+The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
 
 This is a sample just using get in properties to make them read only:
@@ -103,7 +103,7 @@ Then the object initializer has to be via constructor:
 var dimension = new Dimension(10, 10);
 ```
 
-In the code below using init, the constructor would no longer be necessary using unit only properties:
+In the code below using `init`, the constructor would no longer be necessary using unit only properties:
 
 ``` csharp
 struct Dimension
@@ -116,7 +116,26 @@ struct Dimension
 Then the object initializer can be used like this:
 
 ``` csharp
-var dimension = new Dimension() { Width = 10, Height = 10 };
+var dimension = new Dimension { Width = 10, Height = 10 };
+```
+When a base class has a `init` virtual property, the derived classes overriding it must also have `init`
+
+```c#
+class BaseClass
+{
+    public virtual int BaseClassProperty { get; init; }
+}
+
+class DerivedClass1 : BaseClass
+{
+    public override int BaseClassProperty { get; init; }
+}
+
+class DerivedClass2 : BaseClass
+{
+    // Compilation Error: Property must have `init` to override
+    public override int BaseClassProperty { get; set; }
+}
 ```
 
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
