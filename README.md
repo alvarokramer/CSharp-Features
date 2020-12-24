@@ -1,4 +1,4 @@
-# C# Features from the lastest versions
+# C# Features from the latest versions
 
 C# 9 was recently released with new great features and shows once again the fast evolution of the programming language.
 In this article we present a curated list of new and not so new features added to the C# over the years.
@@ -7,21 +7,21 @@ In this article we present a curated list of new and not so new features added t
 
 Switch Expressions is a feature added in C# 8 that provides a concise way of creating switch like statements. It's no longer necessary the use of the `case` and `break` keyworks and the result is a more plesent sintax for the programmer.
 
-```c#
+``` csharp
 var interestingFact = DateTime.Today.DayOfWeek switch
 {
-	DayOfWeek.Monday => "Day of the moon",
-	DayOfWeek.Tuesday => "The English name is derived from Old English Tiwesdæg",
-	DayOfWeek.Wednesday => "It's named after Odin",
-	DayOfWeek.Thursday => "It's named after Thor",
-	DayOfWeek.Friday => "The name comes from the Old English Frīġedæġ",
-	_ => "Yey, weekend!"
+    DayOfWeek.Monday => "Day of the moon",
+    DayOfWeek.Tuesday => "Is derived from Old English for Tiw's day",
+    DayOfWeek.Wednesday => "It's named after Odin",
+    DayOfWeek.Thursday => "It's named after Thor",
+    DayOfWeek.Friday => "Comes from the Old English that means day of Frige",
+    _ => "Yey, weekend!"
 };
 ```
 
 Combined with [pattern matching](https://docs.microsoft.com/en-us/dotnet/csharp/pattern-matching) it allows creating complex statements. It's important to note that the switch expression arms are evaluated in text order.
 
-```c#
+``` csharp
 static decimal GetTollPrice(IVehicle vehicle)
 {
     return vehicle switch
@@ -72,17 +72,53 @@ It's important to remember that the Tuple Type can only hold 8(eight) parameters
 The init only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
 
-In the code below, the constructor would no longer be necessary using unit:
+This is a sample just using get in properties to make them read only:
+
+``` csharp
+struct Dimension
+{
+   public int Width { get; }
+   public int Height { get; }
+
+   public Dimension(int width, int height)
+   {
+      this.Width = width;
+      this.Height = height;
+   }
+}
+```
+
+Then the object initializer has to be via constructor:
+
+``` csharp
+var dimension = new Dimension(10, 10);
+```
+
+In the code below using init, the constructor would no longer be necessary using unit only properties:
+
+``` csharp
+struct Dimension
+{
+   public int Width { get; init; }
+   public int Height { get; init; }
+}
+```
+
+Then the object initializer can be used like this:
+
+``` csharp
+var dimension = new Dimension() { Width = 10, Height = 10 };
+```
 
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
-## [Index e Ranges](https://docs.microsoft.com/en-us/do)
+## [Index e Ranges](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes)
 
 ## [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types)
 
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
-This feature was introduced in c# 8 and the purpose was enable to the developer create and consume streams asynchronously. The problem which this feature solved was: before `Asynchronous streams` c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` brings to the developer the possibility to generate multiple results asynchronously.
+This feature was introduced in c# 8 and the purpose was enable to create and consume streams asynchronously. `Asynchronous streams` solved a problem which was: before it, the c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` bring the possibility to generate multiple results asynchronously.
 
 In the past, if you needed multiple results from a method probably the solution was to declare an `IEnumerable<>` return to the method together with the use of `yield return` modifier:
 
