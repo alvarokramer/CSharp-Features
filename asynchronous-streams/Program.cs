@@ -6,7 +6,7 @@ namespace asynchronous_streams
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             Console.WriteLine("Press any key to get the messages in an yield return fashion.");
             Console.ReadLine();
