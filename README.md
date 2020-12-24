@@ -154,7 +154,7 @@ C# also provides the possibility to implement one or more Deconstruct methods to
             dist = Distance;
         }
 
-        public void Deconstruct(out string dest, out double dist, DateTime interval)
+        public void Deconstruct(out string dest, out double dist, out DateTime interval)
         {
             dest = Destination;
             dist = Distance;
