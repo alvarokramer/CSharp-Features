@@ -205,11 +205,9 @@ The nullable and non-nullable reference types were introduced in c# 8. This feat
 
 - it can never be assigned the value null;
 
-- the compiler doesn't launch any warnings when the variable is initialized to null;
+- the compiler doesn't issue any warnings when reference types are dereferenced;
 
-- the compiler doesn't launch any warnings when the variable is assigned to null;
-
-- the compiler launches warnings when the variable is dereferenced without null checks.
+- the compiler issues warnings if a variable is set to an expression that may be null.
 
 2) On the other hand, to the nullable variables:
 
@@ -219,9 +217,11 @@ The nullable and non-nullable reference types were introduced in c# 8. This feat
 
 - the variable may only be dereferenced when the compiler can guarantee that the value isn't null;
 
-- the compiler doesn't launch any warnings when reference types are dereferenced;
+- the compiler doesn't issue any warnings when the variable is initialized to null;
 
-- the compiler launches warnings if a variable is set to an expression that may be null.
+- the compiler doesn't issue any warnings when the variable is assigned to null;
+
+- the compiler issues warnings when the variable is dereferenced without null checks.
 
 The `nullable reference type` syntax notation is the same as the `nullable value types` notation: just insert a `?` appended to the variable's type as the example below:
 
