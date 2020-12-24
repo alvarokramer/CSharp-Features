@@ -116,6 +116,40 @@ var dimension = new Dimension() { Width = 10, Height = 10 };
 
 ## [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types)
 
+Firstly it's important to separate two concepts, [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) are available since c# 2 and it's different from what we want to approach. This topic is about [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types), for more information on the two main categories of c# types, check the [Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types).
+
+The nullable and non-nullable reference types were introduced in c# 8. This feature works based on compiler enforcement rules, that is:
+
+1) When the variable isn't supposed to be null:
+
+- the compiler enforces the variable to be initialized with a non-null value;
+
+- it can never be assigned the value null;
+
+- the compiler doesn't launch any warnings when the variable is initialized to null;
+
+- the compiler doesn't launch any warnings when the variable is assigned to null;
+
+- the compiler launches warnings when the variable is dereferenced without null checks.
+
+2) On the other hand, to the nullable variables:
+
+- it may be initialized with null value;
+
+- can be assigned to null after initialization;
+
+- the variable may only be dereferenced when the compiler can guarantee that the value isn't null;
+
+- the compiler doesn't launch any warnings when reference types are dereferenced;
+
+- the compiler launches warnings if a variable is set to an expression that may be null.
+
+The `nullable reference type` syntax notation is the same as the `nullable value types` notation: just insert a `?` appended to the variable's type as the example below:
+
+``` csharp
+  string? name;
+```
+
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
 This feature was introduced in c# 8 and the purpose was enable to create and consume streams asynchronously. `Asynchronous streams` solved a problem which was: before it, the c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` bring the possibility to generate multiple results asynchronously.
