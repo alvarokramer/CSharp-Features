@@ -35,7 +35,6 @@ static decimal GetTollPrice(IVehicle vehicle)
 }
 ```
 
-
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
