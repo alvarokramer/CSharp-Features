@@ -69,7 +69,7 @@ It's important to remember that the Tuple Type can only hold 8(eight) parameters
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
-The init only concept brings the flexibility for immutable model in C#.
+The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the read-only for properties, structs and indexers once an object has been created.
 
 This is a sample just using get in properties to make them read only:
@@ -94,7 +94,7 @@ Then the object initializer has to be via constructor:
 var dimension = new Dimension(10, 10);
 ```
 
-In the code below using init, the constructor would no longer be necessary using unit only properties:
+In the code below using `init`, the constructor would no longer be necessary using unit only properties:
 
 ``` csharp
 struct Dimension
@@ -109,7 +109,7 @@ Then the object initializer can be used like this:
 ``` csharp
 var dimension = new Dimension { Width = 10, Height = 10 };
 ```
-When a base class has a init virtual property, the derived classes overriding it must also have init
+When a base class has a `init` virtual property, the derived classes overriding it must also have `init`
 
 ```c#
 class BaseClass
@@ -124,7 +124,7 @@ class DerivedClass1 : BaseClass
 
 class DerivedClass2 : BaseClass
 {
-    // Compilation Error: Property must have init to override
+    // Compilation Error: Property must have `init` to override
     public override int BaseClassProperty { get; set; }
 }
 ```
