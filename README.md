@@ -104,18 +104,63 @@ var isValid = result.IsValid;
 
 The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
 
-* You can deconstruct into existing variables:
+* Using var for the whole variables declared:
+
+```c#
+    var (destination, distance) = route;
+```
+
+* Using var for each individual variables declared:
+
+```c#
+    (var destination, var distance) = route;
+```
+
+* You can deconstruct into existing variables;
 
 ```c#
     string destination;
     double distance;
-    (destination, distance) = routeFunction(100);
+    (destination, distance) = route;
 ```
 
-* Explicity declare the type of the variables
+* Explicity declare the type of the variables;
 
 ```c#
-    (string destination, double distance) = routeFunction(100);
+    (string destination, double distance) = route;
+```
+
+### [Deconstructing user-defined types](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-tuple-elements-with-discards)
+
+C# also provides the possibility to implement one or more Deconstruct methods to manipulate user-defined types. The method returns void, and each value to be deconstructed is indicated by an out parameter in the method signature. For example, the following Deconstruct method of a Route class returns the destination, and distance
+
+```c#
+    public class Route
+    {
+        public string Destination { get; set; }
+        public double Distance { get; set; }
+        public DateTime  Interval { get; set; }
+
+        public Route(string destination, double distance, DateTime interval) 
+        {
+            Destination = destination;
+            Distance = distance;
+            Interval = interval;
+        }
+
+        public void Deconstruct(out string dest, out double dist)
+        {
+            dest = Destination;
+            dist = Distance;
+        }
+
+        public void Deconstruct(out string dest, out double dist, DateTime interval)
+        {
+            dest = Destination;
+            dist = Distance;
+            interval = Interval;
+        }
+    }
 ```
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
