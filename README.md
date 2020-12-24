@@ -52,48 +52,48 @@ In the code below, we used the Tuple type to create a simple API filter validati
 
 ```c#
 public static class ParamsValidator
+{
+    public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
     {
-        public static Tuple<bool, string, DateTime?, DateTime?, string> Validate(DateTime? startDate, DateTime? endDate, int page)
-        {
-            //initiates the tuple with the types it must have
-            var result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", startDate, endDate);
+        //initiates the tuple with the types it must have
+        var result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", startDate, endDate);
 
-            //Validates the date parameters
-            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "EndDate should be greater than StartDate.", startDate, endDate);
+        //Validates the date parameters
+        if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(false, "EndDate should be greater than StartDate.", startDate, endDate);
 
-            if(!startDate.HasValue && !endDate.HasValue)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", DateTime.Now.AddDays(-7), DateTime.Now);
+        if(!startDate.HasValue && !endDate.HasValue)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
-            //Validates the Page Number parameter
-            if (page <= 0)
-                result = new Tuple<bool, string, DateTime?, DateTime?>(false, "Page number should be greater than zero.", startDate, endDate);
+        //Validates the Page Number parameter
+        if (page <= 0)
+            result = new Tuple<bool, string, DateTime?, DateTime?>(false, "Page number should be greater than zero.", startDate, endDate);
 
-            return result;
-        }
+        return result;
     }
+}
 ```
 With C# 7 changes, we can refactor our code to a much clearer syntax, by being able to name our variables inside the Tuple. So our code above should look like this: 
 
 ```c#
 public static class ParamsValidator
+{
+    public static (bool IsValid, string ErrorMessage, DateTime? StartDate, DateTime? EndDate) Validate(DateTime? startDate, DateTime? endDate, int page)
     {
-        public static (bool IsValid, string ErrorMessage, DateTime? StartDate, DateTime? EndDate) Validate(DateTime? startDate, DateTime? endDate, int page)
-        {
-            var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
+        var result = (IsValid: true, ErrorMessage: "", StartDate: startDate, EndDate: endDate);
 
-            if (startDate.HasValue && endDate.HasValue && endDate < startDate)
-                result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
+        if (startDate.HasValue && endDate.HasValue && endDate < startDate)
+            result = (false, "EndDate should be greater than StartDate.", startDate, endDate);
 
-            if(!startDate.HasValue && !endDate.HasValue)
-                result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
+        if(!startDate.HasValue && !endDate.HasValue)
+            result = (true, "", DateTime.Now.AddDays(-7), DateTime.Now);
 
-            if (page <= 0)
-                result = (false, "Page number should be greater than zero.", startDate, endDate);
+        if (page <= 0)
+            result = (false, "Page number should be greater than zero.", startDate, endDate);
 
-            return result;
-        }
+        return result;
     }
+}
 ```
 And if we want to access the values inside the new Tuple, we can just do this: 
 
@@ -104,24 +104,69 @@ var isValid = result.IsValid;
 
 The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
 
-* You can deconstruct into existing variables:
+* Using var for the whole variables declared:
+
+```c#
+    var (destination, distance) = route;
+```
+
+* Using var for each individual variables declared:
+
+```c#
+    (var destination, var distance) = route;
+```
+
+* You can deconstruct into existing variables;
 
 ```c#
     string destination;
     double distance;
-    (destination, distance) = routeFunction(100);
+    (destination, distance) = route;
 ```
 
-* Explicity declare the type of the variables
+* Explicity declare the type of the variables;
 
 ```c#
-    (string destination, double distance) = routeFunction(100);
+    (string destination, double distance) = route;
+```
+
+### [Deconstructing user-defined types](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-tuple-elements-with-discards)
+
+C# also provides the possibility to implement one or more Deconstruct methods to manipulate user-defined types. The method returns void, and each value to be deconstructed is indicated by an out parameter in the method signature. For example, the following Deconstruct method of a Route class returns the destination, and distance
+
+```c#
+    public class Route
+    {
+        public string Destination { get; set; }
+        public double Distance { get; set; }
+        public DateTime  Interval { get; set; }
+
+        public Route(string destination, double distance, DateTime interval) 
+        {
+            Destination = destination;
+            Distance = distance;
+            Interval = interval;
+        }
+
+        public void Deconstruct(out string dest, out double dist)
+        {
+            dest = Destination;
+            dist = Distance;
+        }
+
+        public void Deconstruct(out string dest, out double dist, out DateTime interval)
+        {
+            dest = Destination;
+            dist = Distance;
+            interval = Interval;
+        }
+    }
 ```
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
 
 The `init` only concept brings the flexibility for immutable model in C#.
-It makes simpler the read-only for properties, structs and indexers once an object has been created.
+It makes simpler the `readonly` for properties, structs(value types) and indexers once an object has been created.
 A `init` setter property should be declared in place of the `set` keyword.
 
 This is a sample just using get in properties to make them read only:
@@ -129,14 +174,14 @@ This is a sample just using get in properties to make them read only:
 ``` csharp
 struct Dimension
 {
-   public int Width { get; }
-   public int Height { get; }
+    public int Width { get; }
+    public int Height { get; }
 
-   public Dimension(int width, int height)
-   {
-      this.Width = width;
-      this.Height = height;
-   }
+    public Dimension(int width, int height)
+    {
+        this.Width = width;
+        this.Height = height;
+    }
 }
 ```
 
@@ -151,8 +196,8 @@ In the code below using `init`, the constructor would no longer be necessary usi
 ``` csharp
 struct Dimension
 {
-   public int Width { get; init; }
-   public int Height { get; init; }
+    public int Width { get; init; }
+    public int Height { get; init; }
 }
 ```
 
@@ -176,7 +221,7 @@ class DerivedClass1 : BaseClass
 
 class DerivedClass2 : BaseClass
 {
-    // Compilation Error: Property must have `init` to override
+    // Compilation Error: Property must have init to override
     public override int BaseClassProperty { get; set; }
 }
 ```
@@ -226,27 +271,27 @@ The nullable and non-nullable reference types were introduced in c# 8. This feat
 
 1) When the variable isn't supposed to be null:
 
-- the compiler enforces the variable to be initialized with a non-null value;
+   - the compiler enforces the variable to be initialized with a non-null value;
 
-- it can never be assigned the value null;
+   - it can never be assigned the value null;
 
-- the compiler doesn't issue any warnings when reference types are dereferenced;
+   - the compiler doesn't issue any warnings when reference types are dereferenced;
 
-- the compiler issues warnings if a variable is set to an expression that may be null.
+   - the compiler issues warnings if a variable is set to an expression that may be null.
 
 2) On the other hand, to the nullable variables:
 
-- it may be initialized with null value;
+   - it may be initialized with null value;
 
-- can be assigned to null after initialization;
+   - can be assigned to null after initialization;
 
-- the variable may only be dereferenced when the compiler can guarantee that the value isn't null;
+   - the variable may only be dereferenced when the compiler can guarantee that the value isn't null;
 
-- the compiler doesn't issue any warnings when the variable is initialized to null;
+   - the compiler doesn't issue any warnings when the variable is initialized to null;
 
-- the compiler doesn't issue any warnings when the variable is assigned to null;
+   - the compiler doesn't issue any warnings when the variable is assigned to null;
 
-- the compiler issues warnings when the variable is dereferenced without null checks.
+   - the compiler issues warnings when the variable is dereferenced without null checks.
 
 The `nullable reference type` syntax notation is the same as the `nullable value types` notation: just insert a `?` appended to the variable's type as the example below:
 
