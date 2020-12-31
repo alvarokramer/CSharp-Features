@@ -350,7 +350,8 @@ static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
 You can find the source code [here](https://github.com/alvarokramer/CSharp-Features).
 
 ## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/exploration/records)
-C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
+C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type but it is a reference type.
+We have the following record: 
 
 ```c#
 public record Car
