@@ -414,6 +414,8 @@ The article presented interesting features released in C# versions 7, 8 and 9.
 
 Missing your favorite feature in the list? Please tell us about in the comments.
 
+Post writen in partership with [Alvaro Kramer](https://github.com/alvarokramer), [Jean Lima](https://github.com/jeanolima), [Luiz Lelis](https://github.com/luizhlelis), [Rafael Miranda](https://github.com/rafaelpadovezi) and [Stefano Bretas](https://github.com/sbpietro)
+
 ## References
 
 https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9
