@@ -46,7 +46,7 @@ class Motorcycle : IVehicle {}
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
-The Tuple type is a C# feature available from C# 7 and provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
+The Tuple type is a C# that provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
 
 In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity.
 
@@ -163,7 +163,7 @@ C# also provides the possibility to implement one or more Deconstruct methods to
     }
 ```
 
-## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-9.0/init)
+## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#init-only-setters)
 
 The `init` only concept brings the flexibility for immutable model in C#.
 It makes simpler the `readonly` for properties, structs(value types) and indexers once an object has been created.
@@ -309,26 +309,17 @@ In the past, if you needed multiple results from a method probably the solution 
 using System;
 using System.Collections.Generic;
 
-namespace asynchronous_streams
+Console.WriteLine("Press any key to get the messages in an yield return fashion.");
+Console.ReadLine();
+
+foreach (var message in YieldReturnMessages())
+    Console.WriteLine(message);
+
+static IEnumerable<string> YieldReturnMessages()
 {
-    class Program
-    {
-        static void Main()
-        {
-            Console.WriteLine("Press any key to get the messages in an yield return fashion.");
-            Console.ReadLine();
-
-            foreach (var message in YieldReturnMessages())
-                Console.WriteLine(message);
-        }
-
-        static IEnumerable<string> YieldReturnMessages()
-        {
-            yield return "Avenue";
-            yield return "Code";
-            yield return "Rocks!";
-        }
-    }
+    yield return "Avenue";
+    yield return "Code";
+    yield return "Rocks!";
 }
 ```
 
@@ -339,35 +330,26 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace asynchronous_streams
+Console.WriteLine("Press any key to get the messages in an await and yield return fashion.");
+Console.ReadLine();
+
+await foreach (var message in AwaitAndYieldReturnMessages())
+    Console.WriteLine(message);
+
+static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
 {
-    class Program
-    {
-        static async Task Main()
-        {
-            Console.WriteLine("Press any key to get the messages in an await and yield return fashion.");
-            Console.ReadLine();
-
-            await foreach (var message in AwaitAndYieldReturnMessages())
-                Console.WriteLine(message);
-        }
-
-        static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
-        {
-            await Task.Delay(1000);
-            yield return "Avenue";
-            await Task.Delay(1000);
-            yield return "Code";
-            await Task.Delay(1000);
-            yield return "Rocks!";
-        }
-    }
+    await Task.Delay(1000);
+    yield return "Avenue";
+    await Task.Delay(1000);
+    yield return "Code";
+    await Task.Delay(1000);
+    yield return "Rocks!";
 }
 ```
 
 You can find the source code [here](https://github.com/alvarokramer/CSharp-Features).
 
-## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types)
+## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/exploration/records)
 C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
 
 ```c#
