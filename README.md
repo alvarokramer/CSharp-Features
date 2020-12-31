@@ -402,7 +402,7 @@ Another way to declare records is using the **positional records** form. This wa
 public record Car(string Color, string Model, int Horsepower);
 ```
 
-If we wanted to create then a new record that is just like the first `Car`, but with a different `Color`, the new keyword with can be used.
+If we then want to create a new record that is just like the first `Car`, but with a different `Color`, the new keyword with can be used.
 
 ```c#
 var blueCar = modelS with {Color = "Blue"};
