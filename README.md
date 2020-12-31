@@ -46,7 +46,7 @@ class Motorcycle : IVehicle {}
 
 ## [Tuple](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples)
 
-The Tuple type is a C# that provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
+The Tuple type is a C# feature that provides a good syntax to group multiple data elements or when you want to have a data structure containing the properties of an object but without having to create the object itself.
 
 In the code below, we used the Tuple type to create a simple API filter validation class, with Initial Date, Final Date and Page Number, that applies the correct rules and returns the original data with possible error messages and a boolean indicating whether the validation went right or wrong. This was a good option for a filter without having to use any external libraries like FluentValidation, for a relatively simple API with low complexity.
 
@@ -107,27 +107,27 @@ The deconstructing is a way of consume tuples. A declaration of deconstructing i
 * Using var for the whole variables declared:
 
 ```c#
-    var (destination, distance) = route;
+var (destination, distance) = route;
 ```
 
 * Using var for each individual variables declared:
 
 ```c#
-    (var destination, var distance) = route;
+(var destination, var distance) = route;
 ```
 
 * You can deconstruct into existing variables;
 
 ```c#
-    string destination;
-    double distance;
-    (destination, distance) = route;
+string destination;
+double distance;
+(destination, distance) = route;
 ```
 
 * Explicity declare the type of the variables;
 
 ```c#
-    (string destination, double distance) = route;
+(string destination, double distance) = route;
 ```
 
 ### [Deconstructing user-defined types](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-tuple-elements-with-discards)
@@ -135,32 +135,32 @@ The deconstructing is a way of consume tuples. A declaration of deconstructing i
 C# also provides the possibility to implement one or more Deconstruct methods to manipulate user-defined types. The method returns void, and each value to be deconstructed is indicated by an out parameter in the method signature. For example, the following Deconstruct method of a Route class returns the destination, and distance
 
 ```c#
-    public class Route
+public class Route
+{
+    public string Destination { get; set; }
+    public double Distance { get; set; }
+    public DateTime  Interval { get; set; }
+
+    public Route(string destination, double distance, DateTime interval) 
     {
-        public string Destination { get; set; }
-        public double Distance { get; set; }
-        public DateTime  Interval { get; set; }
-
-        public Route(string destination, double distance, DateTime interval) 
-        {
-            Destination = destination;
-            Distance = distance;
-            Interval = interval;
-        }
-
-        public void Deconstruct(out string dest, out double dist)
-        {
-            dest = Destination;
-            dist = Distance;
-        }
-
-        public void Deconstruct(out string dest, out double dist, out DateTime interval)
-        {
-            dest = Destination;
-            dist = Distance;
-            interval = Interval;
-        }
+        Destination = destination;
+        Distance = distance;
+        Interval = interval;
     }
+
+    public void Deconstruct(out string dest, out double dist)
+    {
+        dest = Destination;
+        dist = Distance;
+    }
+
+    public void Deconstruct(out string dest, out double dist, out DateTime interval)
+    {
+        dest = Destination;
+        dist = Distance;
+        interval = Interval;
+    }
+}
 ```
 
 ## [Init only setters](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#init-only-setters)
@@ -296,7 +296,7 @@ The nullable and non-nullable reference types were introduced in c# 8. This feat
 The `nullable reference type` syntax notation is the same as the `nullable value types` notation: just insert a `?` appended to the variable's type as the example below:
 
 ``` csharp
-  string? name;
+string? name;
 ```
 
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
@@ -353,14 +353,14 @@ You can find the source code [here](https://github.com/alvarokramer/CSharp-Featu
 C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
 
 ```c#
-    public record Car
-    {
-        string Color { get; }
+public record Car
+{
+    string Color { get; }
 
-        string Model { get; }
-        
-        int Horsepower { get; }
-    }
+    string Model { get; }
+    
+    int Horsepower { get; }
+}
 ```
 Its properties are implicitly public, so it's not necessary to write the `public` modifier before the type. 
 When creating an object from the record, we get a code like the one below: 
