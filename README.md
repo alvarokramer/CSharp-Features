@@ -271,9 +271,9 @@ To support the operators a type must provide an [indexer](https://docs.microsoft
 
 ## [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types)
 
-Firstly it's important to separate two concepts, [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) are available since c# 2 and it's different from what we want to approach. This topic is about [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types), for more information on the two main categories of c# types, check the [Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types).
+Firstly it's important to separate two concepts, [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types) are available since C# 2 and it's different from what we want to approach. This topic is about [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#nullable-reference-types), for more information on the two main categories of c# types, check the [Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types).
 
-The nullable and non-nullable reference types were introduced in c# 8. This feature works based on compiler enforcement rules, that is:
+The nullable and non-nullable reference types were introduced in C# 8. This feature works based on compiler enforcement rules, that is:
 
 1) When the variable isn't supposed to be null:
 
@@ -313,7 +313,7 @@ Nullable reference types is an opt-in feature and must be enabled in the _.cspro
 
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
-This feature was introduced in c# 8 and the purpose was enable to create and consume streams asynchronously. `Asynchronous streams` solved a problem which was: before it, the c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` bring the possibility to generate multiple results asynchronously.
+This feature was introduced in C# 8 and the purpose was enable to create and consume streams asynchronously. `Asynchronous streams` solved a problem which was: before it, the C# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` bring the possibility to generate multiple results asynchronously.
 
 In the past, if you needed multiple results from a method probably the solution was to declare an `IEnumerable<>` return to the method together with the use of `yield return` modifier:
 
