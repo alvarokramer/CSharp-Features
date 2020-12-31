@@ -410,7 +410,9 @@ var blueCar = modelS with {Color = "Blue"};
 
 ## Conclusion
 
-The article presented interesting features released in C# versions 7, 8 and 9. Missing your favorite feature in the list? Please tell us about in the comments.
+The article presented interesting features released in C# versions 7, 8 and 9. 
+
+Missing your favorite feature in the list? Please tell us about in the comments.
 
 ## References
 
