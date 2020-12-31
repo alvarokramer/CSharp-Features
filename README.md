@@ -305,6 +305,12 @@ The `nullable reference type` syntax notation is the same as the `nullable value
 string? name;
 ```
 
+Nullable reference types is an opt-in feature and must be enabled in the _.csproj_ file.
+
+```xml
+<Nullable>enable</Nullable>
+```
+
 ## [Asynchronous streams](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8#asynchronous-streams)
 
 This feature was introduced in c# 8 and the purpose was enable to create and consume streams asynchronously. `Asynchronous streams` solved a problem which was: before it, the c# was able to provide enumerables (which are synchronous) and task/async/await (which are asyncronous), but was not able to provide an asynchronous work during enumeration. Tasks only produce a result once, enumerables can generate multiple results the `Asynchronous streams` bring the possibility to generate multiple results asynchronously.
@@ -356,29 +362,47 @@ static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
 You can find the source code [here](https://github.com/alvarokramer/CSharp-Features).
 
 ## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/exploration/records)
-C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type but it is a reference type.
-We have the following record: 
+C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type (although it is a reference type).
+We have the following record:
 
 ```c#
 public record Car
 {
-    string Color { get; }
+    public Car(string color, string model, int horsepower)
+    {
+        Color = color;
+        Model = model;
+        Horsepower = horsepower;
+    }
 
-    string Model { get; }
-    
-    int Horsepower { get; }
+    public string Color { get; }
+
+    public string Model { get; }
+
+    public int Horsepower { get; }
 }
 ```
 
-Its properties are implicitly public, so it's not necessary to write the `public` modifier before the type.
 When creating an object from the record, we get a code like the one below:
 
 ```c#
 var modelS = new Car("Red", "ModelS", 250);
 ```
 
-Works just like a normal object, but when it's created, we cannot change its properties' values anymore.
-If we wanted to create then a new record that is just like the first "Car", but with a different "Color", the new keyword `with` can be used.
+Works just like a normal object, but when it's created, we cannot change its properties' values anymore. Also, when comparing records of the same type, the objects are equal if the values of the properties are equal.
+
+```c#
+var anotherModelS = new Car("Red", "ModelS", 250);
+Console.WriteLine(modelS == anotherModelS); // true
+```
+
+Another way to declare records is using the **positional records** form. This way the properties can be omitted.
+
+```c#
+public record Car(string Color, string Model, int Horsepower);
+```
+
+If we wanted to create then a new record that is just like the first `Car`, but with a different `Color`, the new keyword with can be used.
 
 ```c#
 var blueCar = modelS with {Color = "Blue"};
