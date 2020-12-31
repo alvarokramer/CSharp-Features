@@ -407,3 +407,7 @@ If we wanted to create then a new record that is just like the first `Car`, but 
 ```c#
 var blueCar = modelS with {Color = "Blue"};
 ```
+
+## Conclusion
+
+The article presented features released in C# versions 7, 8 and 9. Missing your favorite feature in the list? Please tell us about in the comments.
