@@ -73,6 +73,7 @@ public static class ParamsValidator
     }
 }
 ```
+
 With C# 7 changes, we can refactor our code to a much clearer syntax, by being able to name our variables inside the Tuple. So our code above should look like this: 
 
 ```c#
@@ -95,11 +96,13 @@ public static class ParamsValidator
     }
 }
 ```
+
 And if we want to access the values inside the new Tuple, we can just do this: 
 
 ```c#
 var isValid = result.IsValid;
 ```
+
 ## [Deconstructing](https://docs.microsoft.com/en-us/dotnet/csharp/deconstruct#deconstructing-user-defined-types)
 
 The deconstructing is a way of consume tuples. A declaration of deconstructing is the syntax for splitting a value into its parts and assigning those parts individually to other variables. You can do that in one of the following ways:
@@ -206,6 +209,7 @@ Then the object initializer can be used like this:
 ``` csharp
 var dimension = new Dimension { Width = 10, Height = 10 };
 ```
+
 When a base class has a `init` virtual property, the derived classes overriding it must also have `init`
 
 ```c#
@@ -229,6 +233,7 @@ class DerivedClass2 : BaseClass
 ## [Index e Ranges](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/ranges-indexes)
 
 C# 8 introduces two new operators:
+
 - The `^` operator provides a better syntax to access elements counting from the end:
 
 ``` csharp
@@ -258,6 +263,7 @@ static void WriteArray(string[] strings) => Console.WriteLine(string.Join(", ", 
 ```
 
 This funcionality relies on the new types `Index` and `Range`:
+
 - `System.Index`: represents a type that can be used to index a collection either from the start or the end.
 - `System.Range`: represents a range that has start and end indexes.
 
@@ -271,7 +277,7 @@ The nullable and non-nullable reference types were introduced in c# 8. This feat
 
 1) When the variable isn't supposed to be null:
 
-   - the compiler enforces the variable to be initialized with a non-null value;
+    - the compiler enforces the variable to be initialized with a non-null value;
 
    - it can never be assigned the value null;
 
@@ -350,7 +356,8 @@ static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
 You can find the source code [here](https://github.com/alvarokramer/CSharp-Features).
 
 ## [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/exploration/records)
-C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record: 
+
+C# 9 introduced a new feature named `Record Type`, which is a keyword to make an object immutable and to make it behave like a value type. We have the following record:
 
 ```c#
 public record Car
@@ -362,14 +369,16 @@ public record Car
     int Horsepower { get; }
 }
 ```
-Its properties are implicitly public, so it's not necessary to write the `public` modifier before the type. 
-When creating an object from the record, we get a code like the one below: 
+
+Its properties are implicitly public, so it's not necessary to write the `public` modifier before the type.
+When creating an object from the record, we get a code like the one below:
 
 ```c#
 var modelS = new Car("Red", "ModelS", 250);
 ```
+
 Works just like a normal object, but when it's created, we cannot change its properties' values anymore.
-If we wanted to create then a new record that is just like the first "Car", but with a different "Color", the new keyword `with` can be used. 
+If we wanted to create then a new record that is just like the first "Car", but with a different "Color", the new keyword `with` can be used.
 
 ```c#
 var blueCar = modelS with {Color = "Blue"};
