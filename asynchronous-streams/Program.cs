@@ -16,17 +16,17 @@ await foreach (var message in AwaitAndYieldReturnMessages())
 
 static IEnumerable<string> YieldReturnMessages()
 {
-    yield return "Avenue";
-    yield return "Code";
-    yield return "Rocks!";
+    yield return "Juntos";
+    yield return "Somos";
+    yield return "Mais!";
 }
 
 static async IAsyncEnumerable<string> AwaitAndYieldReturnMessages()
 {
     await Task.Delay(1000);
-    yield return "Avenue";
+    yield return "Juntos";
     await Task.Delay(1000);
-    yield return "Code";
+    yield return "Somos";
     await Task.Delay(1000);
-    yield return "Rocks!";
+    yield return "Mais!";
 }
